@@ -15,8 +15,14 @@ pipeline {
                 sh '''#!/bin/bash
                 echo 'Test Step: Running pytest with Python virtual environment (mlip)'
 
+                if [ ! -d "mlip" ]; then
+                    python3 -m venv mlip
+                fi
+
                 # Activate the virtual environment
                 source mlip/bin/activate
+
+                pip install pytest numpy pandas scikit-learn
 
                 # Run pytest in the activated virtual environment
                 pytest
